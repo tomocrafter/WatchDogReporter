@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "watchdogreporter",
+    "name": "WatchDogReporter",
+    "description": "this mod gives you really cool report system.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "tomotomo"
+    ],
+    "credits": "tomotomo",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
