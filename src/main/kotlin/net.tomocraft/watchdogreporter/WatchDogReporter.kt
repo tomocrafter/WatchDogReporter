@@ -33,9 +33,7 @@ class WatchDogReporter {
 
     @SubscribeEvent
     fun onLoggedIn(e: FMLNetworkEvent.ClientConnectedToServerEvent) {
-        val ip = e.manager.remoteAddress.toString()
-        println(ip)
-        this.onHypixel = !WatchDogReporter.mc.isConnectedToRealms && ip.contains("hypixel.net")
+        this.onHypixel = !WatchDogReporter.mc.isConnectedToRealms && e.manager.remoteAddress.toString().toLowerCase().contains("hypixel.net")
     }
 
     @SubscribeEvent
