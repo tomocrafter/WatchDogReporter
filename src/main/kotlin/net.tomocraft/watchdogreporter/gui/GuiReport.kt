@@ -14,7 +14,7 @@ class GuiReport internal constructor(private val username: String) : GuiScreen()
     override fun drawScreen(mouseX: Int, mouseY: Int, partialTicks: Float) {
         drawDefaultBackground()
 
-        report.enabled = !hacks.isEmpty()
+        report.enabled = hacks.isNotEmpty()
 
         super.drawScreen(mouseX, mouseY, partialTicks)
     }
@@ -46,15 +46,12 @@ class GuiReport internal constructor(private val username: String) : GuiScreen()
             WatchDogReporter.mc.thePlayer.sendChatMessage(command)
             mc.displayGuiScreen(null)
         } else if (button.enabled) {
-            val name = button.displayString.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-            if (name.isNotEmpty()) {
-                val hack = Hacks.getByName(name[0]) ?: return
-                button.displayString = hack.friendlyName + ": " + if (!hacks.contains(hack)) "§aOn" else "§cOff"
-                if (hacks.contains(hack)) {
-                    hacks.remove(hack)
-                } else {
-                    hacks.add(hack)
-                }
+            val hack = Hacks.values()[button.id - 1]
+            button.displayString = hack.friendlyName + ": " + if (!hacks.contains(hack)) "§aOn" else "§cOff"
+            if (hacks.contains(hack)) {
+                hacks.remove(hack)
+            } else {
+                hacks.add(hack)
             }
         }
     }
@@ -71,16 +68,5 @@ class GuiReport internal constructor(private val username: String) : GuiScreen()
         ANTI_KNOCK_BACK("AntiKnockback"),
         REACH("Reach"),
         DOLPHIN("Dolphin");
-
-        companion object {
-            fun getByName(name: String): Hacks? {
-                for (hack in values()) {
-                    if (hack.friendlyName == name) {
-                        return hack
-                    }
-                }
-                return null
-            }
-        }
     }
 }
